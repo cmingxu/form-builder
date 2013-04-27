@@ -21,6 +21,11 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    margin: 0px;
+}
+
+h1{
+  margin: 0px;
 }
 
 /*
@@ -318,19 +323,16 @@ header.header{
 #formbuilder{
   width: 98%;
   margin: auto;
-  min-height: 600px;
 }
 
 #formFieldsBackground{
   width: 20%;
   float: left;
-  min-height: 600px;
 }
 
 #formEditorBackground{
   width: 60%;
   float: left;
-  min-height: 600px;
 }
 
 #formEditorBackground table{
@@ -354,4 +356,23 @@ header.header{
   width: 20%;
   float: left;
   min-height: 600px;
+}
+
+.form-horizontal .controls{
+  margin-left: 10px;
+}
+
+.form-horizontal .control-label{
+  width: 60px;
+}
+
+.form-horizontal .control-group{
+  margin-bottom: 5px;
+  padding: 3px 5px;
+  margin-right: 25px;
+  border: 2px sold black;
+  box-shadow: 0 1px 4px rgba(0,0,0,.065);
+   -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }

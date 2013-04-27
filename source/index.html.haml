@@ -8,9 +8,11 @@ title: HTML5 Boilerplate Middleman
   .main 
     #formbuilder
       #formFieldsBackground
-        .search
-          %input{:type => "field", :value => "Age"} Search
-        #input.field
+        %form.form-search
+          %input.input-small.search-query
+          %button.btn.btn-small Search
+
+        %form.form-horizontal#fields
 
       #formEditorBackground
       #formFieldInspectorBackground

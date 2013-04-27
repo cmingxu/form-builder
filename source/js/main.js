@@ -9,7 +9,6 @@ var State = {
 var FormState;
 
 var Field = function(){
-  this.state = new State();
   this.type = '';
   this.value = '';
   this.placeholder = '';
@@ -23,7 +22,70 @@ var Field = function(){
   }
 };
 
+
+var LabelField = function (options) {
+  var default_options = {
+    text: 'text'
+  };
+
+  _.extend(default_options, options);
+
+  this.toJSON = function () {
+    return JSON.stringify({
+      text: "label",
+      x: 0,
+      y: 0,
+      width: 10,
+      height: 4
+    })
+  };
+
+  this.toHTML = function () {
+    html = _.template("<div class='control-group'>" +
+                      "<label class='control-label'><%= text %></label>" +
+                     "</div>");
+    return html(default_options);
+  };
+
+  // when field dbclicked, show form on right side 
+  this.inspectorForm = function () {};
+
+  // right form submit. 1) store config in object.
+  this.onInspectorFormSubmit = function(){}
+
+  this.onResizeSize = function () {
+  }
+};
+
 var InputField = function (options) {
+  var default_options = {
+    placeholder: 'input',
+    label: 'Label',
+    name: 'name'
+  };
+
+  _.extend(default_options, options);
+
+  this.toJSON = function () {
+    return JSON.stringify({
+      type: "input",
+      name: default_options.name,
+      label: default_options.label,
+      x: 0,
+      y: 0,
+      width: 10,
+      height: 4
+    })
+  };
+
+  this.toHTML = function () {
+    html = _.template("<div class='control-group'>" +
+                      "<div class='controls'>" + 
+                      "<input type='text' placeholder='<%= placeholder%>' class='input-medium'></input>" + 
+                      "</div>" +
+                     "</div>");
+    return html(default_options);
+  };
 };
 
 var CheckboxField = function (options) {
@@ -42,6 +104,7 @@ var FormBuilder = function(options) {
   var fields = [];
 
   var container = $(default_options.container);
+  var fieldChooserContainer = $(default_options.fieldChooserContainer);
 
   this.render = function (options) {
     _renderFormCanvas();
@@ -67,11 +130,15 @@ var FormBuilder = function(options) {
       table.prepend(tr.clone());
     }
 
-    table.addClass("backgroundCanvas");
+    table.addClass("table").addClass("tableBordered");
     container.html(table.get(0));
   }
 
   var _renderFieldsChooser = function () {
+    label = new LabelField({});
+    fieldChooserContainer.append(label.toHTML());
+    input = new InputField({});
+    fieldChooserContainer.append(input.toHTML());
   }
 }
 
@@ -79,6 +146,7 @@ var FormBuilder = function(options) {
 $(document).ready( function() {
   var options = {
     container: '#formEditorBackground',
+    fieldChooserContainer: '#fields',
     width: '60%',
     height: '400px',
     table_cols: 50,
